@@ -224,6 +224,10 @@ public class CachedPublicKeyRing extends KeyRing {
         }
     }
 
+    public SecretKeyType getSecretKeyType() throws NotFoundException, PgpKeyNotFoundException {
+        return getSecretKeyType(extractOrGetMasterKeyId());
+    }
+
     public SecretKeyType getSecretKeyType(long keyId) throws NotFoundException {
         Object data = mKeyRepository.getGenericData(Keys.buildKeysUri(mUri),
                 KeyRings.HAS_SECRET,
