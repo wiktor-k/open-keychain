@@ -67,7 +67,7 @@ public class ViewKeyAdvActivity extends BaseActivity implements
     public static final int TAB_CERTS = 4;
 
     // view
-    private ViewPager mViewPager;
+    private LockableViewPager mViewPager;
     private PagerSlidingTabStrip mSlidingTabLayout;
 
     private static final int LOADER_ID_UNIFIED = 0;
@@ -90,7 +90,7 @@ public class ViewKeyAdvActivity extends BaseActivity implements
 
         mKeyRepository = KeyRepository.createDatabaseInteractor(this);
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (LockableViewPager) findViewById(R.id.pager);
         mSlidingTabLayout = (PagerSlidingTabStrip) findViewById(R.id.sliding_tab_layout);
 
         mDataUri = getIntent().getData();
@@ -335,12 +335,16 @@ public class ViewKeyAdvActivity extends BaseActivity implements
     public void onActionModeStarted(final ActionMode mode) {
         super.onActionModeStarted(mode);
         mActionMode = mode;
+
+        mViewPager.setPagingLocked(true);
     }
 
     @Override
     public void onActionModeFinished(ActionMode mode) {
         super.onActionModeFinished(mode);
         mActionMode = null;
+
+        mViewPager.setPagingLocked(false);
     }
 
     @Override
